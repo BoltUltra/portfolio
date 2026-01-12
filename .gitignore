@@ -1,0 +1,15 @@
+# Dependencies
+node_modules
+
+# Builds
+.next
+out
+dist
+
+# Env
+.env*
+
+# Misc
+.DS_Store
+*.log
+node_modules
