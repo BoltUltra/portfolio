@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
-import { services } from "@/content";
 import { SectionHeading } from "@/components/shared/section-heading";
 
-export function ServicesSection() {
+export function ServicesSection({ services = [] }: { services?: any[] }) {
+  if (!services || services.length === 0) return null;
+
   return (
     <section id="services" className="container mt-32 space-y-12">
       <SectionHeading
@@ -16,8 +17,8 @@ export function ServicesSection() {
       />
       <div className="grid gap-8 lg:grid-cols-3">
         {services.map((service, index) => {
-          const Icon =
-            Icons[service.icon as keyof typeof Icons] ?? Icons.Activity;
+          const Icon = (Icons[service.icon as keyof typeof Icons] ??
+            Icons.Activity) as React.ElementType;
           return (
             <motion.div
               key={service.title}
@@ -38,7 +39,7 @@ export function ServicesSection() {
               </h3>
               <p className="text-sm text-gray-400">{service.description}</p>
               <ul className="mt-4 space-y-2 text-sm text-white/80">
-                {service.outcomes.map((outcome) => (
+                {service.outcomes?.map((outcome: string) => (
                   <li key={outcome}>• {outcome}</li>
                 ))}
               </ul>
@@ -49,4 +50,3 @@ export function ServicesSection() {
     </section>
   );
 }
-

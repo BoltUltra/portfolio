@@ -16,7 +16,23 @@ import { MissionOverlay } from "@/components/interactive/mission-overlay";
 import { Preloader } from "@/components/interactive/preloader";
 import { CustomCursor } from "@/components/interactive/custom-cursor";
 
-export function HomePage() {
+export function HomePage({
+  projects = [],
+  abouts = [],
+  skills = [],
+  experiences = [],
+  testimonials = [],
+  brands = [],
+}: {
+  projects?: any[];
+  abouts?: any[];
+  skills?: any[];
+  experiences?: any[];
+  testimonials?: any[];
+  brands?: any[];
+}) {
+  console.log("HomePage received projects:", projects?.length);
+
   return (
     <>
       <CustomCursor />
@@ -25,17 +41,17 @@ export function HomePage() {
       <SiteHeader />
       <main className="relative flex flex-col gap-24">
         <HeroSection />
-        <AboutSection />
-        <SkillsSection />
-        <ExperienceSection />
-        <ProjectsSection />
+        <AboutSection abouts={abouts} />
+        <SkillsSection skills={skills} />
+        <ExperienceSection experiences={experiences} />
+        <ProjectsSection projects={projects} />
         <ServicesSection />
-        <TestimonialsSection />
+        <TestimonialsSection testimonials={testimonials} />
         <BlogSection />
         <ContactSection />
       </main>
       <SiteFooter />
-      <FloatingAssistant />
+      {/* <FloatingAssistant projects={projects} /> */}
     </>
   );
 }

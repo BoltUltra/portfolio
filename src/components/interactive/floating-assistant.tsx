@@ -3,12 +3,11 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle, Send, X } from "lucide-react";
-import { projects } from "@/content";
 import { Button } from "@/components/ui/button";
 
-export function FloatingAssistant() {
+export function FloatingAssistant({ projects = [] }: { projects?: any[] }) {
   const [open, setOpen] = React.useState(false);
-  const highlightedProjects = projects.slice(0, 3);
+  const highlightedProjects = projects?.slice(0, 3) || [];
 
   return (
     <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
@@ -72,4 +71,3 @@ export function FloatingAssistant() {
     </div>
   );
 }
-

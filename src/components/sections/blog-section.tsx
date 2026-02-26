@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { blogPosts } from "@/content";
 import { SectionHeading } from "@/components/shared/section-heading";
 
-export function BlogSection() {
+export function BlogSection({ blogPosts = [] }: { blogPosts?: any[] }) {
+  if (!blogPosts || blogPosts.length === 0) return null;
+
   return (
     <section id="blog" className="container mt-32 space-y-10">
       <SectionHeading
@@ -25,7 +26,7 @@ export function BlogSection() {
                 {new Date(post.date).toLocaleDateString(undefined, {
                   month: "short",
                   day: "numeric",
-                  year: "numeric"
+                  year: "numeric",
                 })}
               </p>
               <h3 className="mt-3 font-display text-2xl text-white">
@@ -33,7 +34,7 @@ export function BlogSection() {
               </h3>
               <p className="text-sm text-gray-400">{post.excerpt}</p>
               <div className="mt-4 flex flex-wrap gap-2 text-xs text-white/60">
-                {post.tags.map((tag) => (
+                {post.tags?.map((tag: string) => (
                   <span
                     key={tag}
                     className="rounded-full border border-white/10 px-3 py-1"
@@ -52,4 +53,3 @@ export function BlogSection() {
     </section>
   );
 }
-

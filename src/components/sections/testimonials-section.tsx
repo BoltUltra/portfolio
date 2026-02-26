@@ -1,17 +1,30 @@
 "use client";
 
-import { testimonials } from "@/content";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { urlFor } from "@/sanity/client";
 
-export function TestimonialsSection() {
+interface Testimonial {
+  name: string;
+  company: string;
+  imageurl: string;
+  feedback: string;
+}
+
+export function TestimonialsSection({
+  testimonials,
+}: {
+  testimonials: Testimonial[];
+}) {
+  if (!testimonials || testimonials.length === 0) return null;
+
   return (
     <section id="testimonials" className="container mt-32 space-y-8">
       <SectionHeading
         eyebrow="Testimonials"
         title="Kind words from collaborators."
-        description="Glass cards with quotes from TGPC, Vehance, Nitx, and SDSN partners."
+        description="Feedback from previous partners and clients."
         align="center"
       />
       <ScrollArea className="w-full">
@@ -23,20 +36,25 @@ export function TestimonialsSection() {
             >
               <div className="flex items-center gap-3">
                 <Avatar>
-                  <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+                  <AvatarImage
+                    src={
+                      testimonial.imageurl
+                        ? urlFor(testimonial.imageurl).width(100).url()
+                        : undefined
+                    }
+                    alt={testimonial.name}
+                  />
                   <AvatarFallback>
-                    {testimonial.name.slice(0, 2)}
+                    {testimonial.name?.slice(0, 2) || "AN"}
                   </AvatarFallback>
                 </Avatar>
                 <div>
                   <p className="text-white">{testimonial.name}</p>
-                  <p className="text-xs text-gray-400">
-                    {testimonial.role} · {testimonial.company}
-                  </p>
+                  <p className="text-xs text-gray-400">{testimonial.company}</p>
                 </div>
               </div>
               <blockquote className="mt-4 text-gray-200">
-                “{testimonial.quote}”
+                “{testimonial.feedback}”
               </blockquote>
             </figure>
           ))}
@@ -45,4 +63,3 @@ export function TestimonialsSection() {
     </section>
   );
 }
-

@@ -2,8 +2,7 @@ import type { HeroContent } from "./types";
 
 export const heroContent: HeroContent = {
   eyebrow: "Mayowa Sunusi Usman · Nigeria",
-  title:
-    "Frontend Developer • React • Next.js • Vue • Nuxt • Builder of beautiful, fast experiences.",
+  title: "Frontend Developer • React • Next.js • Vue • Nuxt",
   subtitle:
     "Transforming ideas into clean, scalable, high-performance web interfaces.",
   description:
@@ -15,7 +14,7 @@ export const heroContent: HeroContent = {
       href: "/media/docs/mayowa-resume.pdf",
       variant: "secondary",
     },
-    { label: "Let’s Build Together", href: "#contact", variant: "ghost" },
+    // { label: "Let’s Build Together", href: "#contact", variant: "ghost" },
   ],
   highlights: [
     { label: "Projects", value: "45+", helper: "Startups & enterprises" },
