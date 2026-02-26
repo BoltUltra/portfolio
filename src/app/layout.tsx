@@ -1,38 +1,46 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { initSmoothScroll } from "@/utils/gsap";
-import { LoadingScreen } from "@/components/animations/LoadingScreen";
-import { CursorFollower } from "@/components/animations/CursorFollower";
-import { Navigation } from "@/components/Navigation";
+import type { Metadata } from "next";
+import { ClientLayout } from "@/components/layout/client-layout";
 import "./globals.css";
+
+export const metadata: Metadata = {
+  title: {
+    default: "Mayowa Sunusi | Frontend Engineer",
+    template: "%s | Mayowa Sunusi",
+  },
+  description:
+    "Portfolio of Mayowa Sunusi, a Frontend Engineer specializing in React, Next.js, Vue, and high-performance craft.",
+  keywords: [
+    "Frontend Engineer",
+    "React Developer",
+    "Next.js",
+    "Vue.js",
+    "Web Development",
+    "Portfolio",
+  ],
+  authors: [{ name: "Mayowa Sunusi" }],
+  creator: "Mayowa Sunusi",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://www.mayowasunusi.site",
+    title: "Mayowa Sunusi | Frontend Engineer",
+    description:
+      "Portfolio of Mayowa Sunusi, a Frontend Engineer specializing in React, Next.js, Vue, and high-performance craft.",
+    siteName: "Mayowa Sunusi",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mayowa Sunusi | Frontend Engineer",
+    description:
+      "Portfolio of Mayowa Sunusi, a Frontend Engineer specializing in React, Next.js, Vue, and high-performance craft.",
+  },
+};
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [loading, setLoading] = useState(true);
-  const [smoothScrollEnabled, setSmoothScrollEnabled] = useState(false);
-
-  useEffect(() => {
-    if (!loading) {
-      // Wait for DOM to be ready
-      setTimeout(() => {
-        const smoother = initSmoothScroll();
-        setSmoothScrollEnabled(!!smoother);
-      }, 100);
-    }
-  }, [loading]);
-
-  // Disable GSAP animations if Framer Motion is detected
-  useEffect(() => {
-    const framerElements = document.querySelectorAll("[data-framer-motion]");
-    if (framerElements.length > 0) {
-      document.body.setAttribute("data-prefer-framer", "true");
-    }
-  }, []);
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -49,10 +57,7 @@ export default function RootLayout({
         `}</style>
       </head>
       <body className="bg-black text-white">
-        <CursorFollower />
-        <Navigation />
-        {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
-        {!loading && <div data-gsap-container="true">{children}</div>}
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
